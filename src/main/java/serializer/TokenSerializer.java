@@ -8,10 +8,6 @@ package serializer;
 import com.google.gson.Gson;
 import model.TokenModel;
 
-/**
- *
- * @author iedash
- */
 public class TokenSerializer {
     
     public static TokenModel stringJson2Object(String stringJson) {

@@ -9,10 +9,6 @@ import com.google.gson.Gson;
 import model.TokenModel;
 import model.UserModel;
 
-/**
- *
- * @author iedash
- */
 public class UserSerializer {
 
     public static String toStringJson(UserModel user) {

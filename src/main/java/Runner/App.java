@@ -16,40 +16,56 @@ import org.json.JSONObject;
 import serializer.TokenSerializer;
 import serializer.UserSerializer;
 
-/**
- *
- * @author iedash
- */
 public class App {
 
     public static void main(String[] args) {
-        App.String2Json();
+        //App.String2Json();
+        App.Json2Login();
+        App.getAllUsers();
+        
     }
+    
+    public void name() {
+    	String jsonCarArray = 
+    			  "[{ \"color\" : \"Black\", \"type\" : \"BMW\" }, { \"color\" : \"Red\", \"type\" : \"FIAT\" }]";
+    			List<UserModel> listCar = objectMapper.readValue(jsonCarArray, new TypeReference<List<UserModel>>(){});
+	}
 
     public static void getAllUsers() {
         HTTPClient http = new HTTPClient();
 
-        JSONObject json = new JSONObject();
         try {
-            json.put("username", "br");
-            json.put("password", "br");
-
             String response_str;
 
             response_str = http.sendGet("https://genxapp.herokuapp.com/api/v1/users/?format=json");
-
+            
+            
             System.out.println(response_str);
-        } catch (JSONException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+   
         } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
+    public void jsonOBJ() {
+        JSONObject json = new JSONObject();
+        try {
+			json.put("username", "br");
+			json.put("password", "br");
+			
+		System.out.println(json);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+
+	}
+    
     public static void String2Json() {
 
-        // --- transformando em Objeto Java --- //
+        // --- transformando em Objeto Json--- //
         Gson gson = new Gson(); // conversor
         UserModel user = new UserModel("br", "br");
 

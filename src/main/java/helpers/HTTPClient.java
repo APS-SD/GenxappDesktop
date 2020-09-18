@@ -8,7 +8,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class HTTPClient {
@@ -62,18 +61,10 @@ public class HTTPClient {
             //add request header
             this.request.setRequestProperty("User-Agent", USER_AGENT);
 
-            int responseCode = this.request.getResponseCode();
-
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(this.request.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-            return response.toString();
+           int responseCode = this.request.getResponseCode();
+           
+           
+           return readResponse(this.request);
 
         } catch (Exception e) {
             return "{Nenhuma String}";
@@ -132,4 +123,19 @@ public class HTTPClient {
         return new String(os.toByteArray());
     }
 
+    
+    public void OtherRead(HttpURLConnection request) {
+    	 //BufferedReader in = new BufferedReader(
+          //       new InputStreamReader(request.getInputStream()));
+         //String inputLine;
+         //StringBuffer response = new StringBuffer();
+
+         //while ((inputLine = in.readLine()) != null) {
+           //  response.append(inputLine);
+         //}
+         //in.close();
+         //return response.toString();
+		
+	}
+    
 }

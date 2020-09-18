@@ -5,10 +5,6 @@
  */
 package model;
 
-/**
- *
- * @author iedash
- */
 public class Session {
     UserModel user = null;
     String Access = null;
