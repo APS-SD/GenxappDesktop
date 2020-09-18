@@ -5,7 +5,7 @@
  */
 package model;
 
-public class TokenModel {
+public class TokenModel implements Model {
 
     @Override
     public String toString() {

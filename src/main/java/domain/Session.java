@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package domain;
+
+import model.UserModel;
+import model.TokenModel;
 
 public class Session {
     UserModel user = null;
-    String Access = null;
-    String Refreash = null;
+    TokenModel token = null;
     
 }

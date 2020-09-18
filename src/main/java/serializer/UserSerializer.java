@@ -5,19 +5,34 @@
  */
 package serializer;
 
+import java.util.List;
+
 import com.google.gson.Gson;
-import model.TokenModel;
 import model.UserModel;
 
-public class UserSerializer {
+public class UserSerializer implements Serializer {
 
-    public static String toStringJson(UserModel user) {
-        // --- transformando em Objeto Java --- //
-        Gson gson = new Gson(); // conversor
+	@SuppressWarnings("hiding")
+	@Override
+    public <UserModel> String toStringJson(UserModel userModel) {
+        //
+    	UserModel user = (UserModel) userModel;
 
+        Gson gson = new Gson();
         return gson.toJson(user);
     }
+	
+	@Override
+	public Object Json2Object(String stringJson) {
 
-    
+		return null;
+	}
+
+	@SuppressWarnings("hiding")
+	@Override
+	public <UserModel> List<UserModel> getAll() {
+
+		return null;
+	}
 
 }

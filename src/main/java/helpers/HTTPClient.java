@@ -1,14 +1,13 @@
 package helpers;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import org.json.JSONObject;
+import java.util.Base64;
+
 
 public class HTTPClient {
 
@@ -23,53 +22,65 @@ public class HTTPClient {
         this.request = request;
     }
 
-    public String test() throws Exception {
-        HTTPClient http = new HTTPClient();
+    
+    public String sendGet(String url, String token) {
 
-        JSONObject json = new JSONObject();
-        json.put("username", "br");
-        json.put("password", "br");
+        try {
+           URL obj = new URL(url);
+           
+           this.request = (HttpURLConnection) obj.openConnection();
 
-        String response_str;
+           // declarações de cabeçalho
+           this.request.setRequestMethod("GET");
+           this.request.setRequestProperty("User-Agent", USER_AGENT);
+                 
+           String authHeaderValue = "Bearer " + new String(token);    // cabeçalho de com autenticação
 
-        // exemplo de consumo de API
-        // response_str = http.sendPost("https://genxapp.herokuapp.com/api/v1/login/?format=json", json.toString());
-        // JSONObject response = new JSONObject(response_str);
-        // String a = (String) response.get("access");
-        response_str = http.sendGet("https://genxapp.herokuapp.com/api/v1/users/?format=json");
+           this.request.setRequestProperty("Authorization", authHeaderValue);
+           
+           this.request.connect();
+           
+           return ProcessRequest();
+       
+        } catch (Exception e) {
+            return "{Nenhuma String}";
+        } finally {
+        	this.request.disconnect();
+        }
 
-        JSONObject response = new JSONObject(response_str);
-        String s = (String) response.get("results");
-
-        System.out.println(s);
-        //JSONObject array = new JSONObject(s);
-
-        //String results =  (String) response.get("results");
-        //System.out.println(results);
-        return "";
     }
 
+    private String ProcessRequest() {
+    	
+    	int statusCode = 0;
+		try {
+			statusCode = this.request.getResponseCode();
+			
+		    return readResponse(this.request);
+			    
+		} catch (IOException e) {
+			  return Integer.toString(statusCode);
+		}
+  
+	}
+    
     public String sendGet(String url) {
 
         try {
-            URL obj = new URL(url);
-            this.request = (HttpURLConnection) obj.openConnection();
+           URL obj = new URL(url);
+           this.request = (HttpURLConnection) obj.openConnection();
 
-            // optional default is GET
-            this.request.setRequestMethod("GET");
-
-            //add request header
-            this.request.setRequestProperty("User-Agent", USER_AGENT);
-
-           int responseCode = this.request.getResponseCode();
-           
-           
+           // declarações de cabeçalho
+           this.request.setRequestMethod("GET");
+           this.request.setRequestProperty("User-Agent", USER_AGENT);
+           this.request.connect();
+            
            return readResponse(this.request);
 
         } catch (Exception e) {
             return "{Nenhuma String}";
         } finally {
-
+        	this.request.disconnect();
         }
 
     }
@@ -124,18 +135,5 @@ public class HTTPClient {
     }
 
     
-    public void OtherRead(HttpURLConnection request) {
-    	 //BufferedReader in = new BufferedReader(
-          //       new InputStreamReader(request.getInputStream()));
-         //String inputLine;
-         //StringBuffer response = new StringBuffer();
-
-         //while ((inputLine = in.readLine()) != null) {
-           //  response.append(inputLine);
-         //}
-         //in.close();
-         //return response.toString();
-		
-	}
     
 }

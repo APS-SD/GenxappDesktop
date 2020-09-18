@@ -1,7 +1,7 @@
 package model;
 
 
-public class UserModel {
+public class UserModel implements Model {
     
     private String username;
     private String password;
