@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Base64;
 
 
 public class HTTPClient {
@@ -124,7 +123,9 @@ public class HTTPClient {
 
     private String readResponse(HttpURLConnection request) throws IOException {
         ByteArrayOutputStream os;
+        
         try (InputStream is = request.getInputStream()) {
+        	
             os = new ByteArrayOutputStream();
             int b;
             while ((b = is.read()) != -1) {

@@ -15,11 +15,9 @@ public class UserSerializer implements Serializer {
 	@SuppressWarnings("hiding")
 	@Override
     public <UserModel> String toStringJson(UserModel userModel) {
-        //
-    	UserModel user = (UserModel) userModel;
-
+        
         Gson gson = new Gson();
-        return gson.toJson(user);
+        return gson.toJson(userModel);
     }
 	
 	@Override

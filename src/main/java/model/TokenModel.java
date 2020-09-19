@@ -7,11 +7,7 @@ package model;
 
 public class TokenModel implements Model {
 
-    @Override
-    public String toString() {
-        return "TokenModel{" + "access=" + access + ", refresh=" + refresh + '}';
-    }
-        
+           
     public String access;
     public String refresh;
     public String definitiveAccess;
@@ -31,6 +27,11 @@ public class TokenModel implements Model {
 
     public void setRefresh(String refresh) {
         this.refresh = refresh;
+    }
+    
+    @Override
+    public String toString() {
+        return "TokenModel{" + "access=" + access + ", refresh=" + refresh + '}';
     }
 
     

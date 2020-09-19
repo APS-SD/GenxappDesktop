@@ -15,6 +15,7 @@ public class TokenSerializer implements Serializer {
 	@Override
     public TokenModel Json2Object(String stringJson) {
         Gson gson = new Gson();
+     
         return gson.fromJson(stringJson, TokenModel.class);
     }
 
@@ -28,6 +29,7 @@ public class TokenSerializer implements Serializer {
 	@SuppressWarnings("hiding")
 	@Override
 	public <TokenModel> List<TokenModel> getAll() {
+		
 		
 		return null;
 	}
