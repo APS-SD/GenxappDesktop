@@ -25,15 +25,42 @@ import serializer.UserSerializer;
 public class App {
 
     public static void main(String[] args) {
+    	/*HTTPClient c = new HTTPClient();
+    	
+    	
+    	Gson JsonConversor = new Gson();
+    	
+    	UserModel e = new UserModel("br", "br");
+    	
+    	String json = JsonConversor.toJson(e);
+    	
+    	String response = c.sendPost("https://genxapp.herokuapp.com/api/v1/login/?format=json", json);
+    	
+    	System.out.println(response);
+    	
+    	TokenModel tm = JsonConversor.fromJson(response, TokenModel.class);
+    	
+    	
+    	System.out.println(tm.getAccess());*/
+    	
+    	try {
+			LoginPerformer.performLogin("br", "br");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		
+		}
+    }
+    	
+    public static void name() {	
         App.object2Json();
         App.array2Json();
         App.string2Json();
         App.stringArray2Json();
         App.Json2Login(true);
-        App.getAllUsers();
-      
-    }
-    
+        App.getAllUsers();      
+    }    
    
     public static void getAllUsers() {
     	
