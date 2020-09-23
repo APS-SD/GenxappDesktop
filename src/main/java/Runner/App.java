@@ -25,42 +25,69 @@ import serializer.UserSerializer;
 public class App {
 
     public static void main(String[] args) {
-    	/*HTTPClient c = new HTTPClient();
     	
+    	// Consumo Token
+    	HTTPClient c = new HTTPClient();
     	
-    	Gson JsonConversor = new Gson();
+    	Gson jsonConversor = new Gson();
     	
-    	UserModel e = new UserModel("br", "br");
+    	UserModel m = new UserModel("br", "br");
     	
-    	String json = JsonConversor.toJson(e);
+    	String json = jsonConversor.toJson(m);
     	
     	String response = c.sendPost("https://genxapp.herokuapp.com/api/v1/login/?format=json", json);
+    		
     	
-    	System.out.println(response);
+    	// Refresh Tokenb
+    	TokenModel tm = jsonConversor.fromJson(response, TokenModel.class);
     	
-    	TokenModel tm = JsonConversor.fromJson(response, TokenModel.class);
-    	
-    	
-    	System.out.println(tm.getAccess());*/
+    	JSONObject jo = new JSONObject();
     	
     	try {
-			LoginPerformer.performLogin("br", "br");
-		} catch (Exception e) {
+			String payload = jo.put("refresh", tm.getRefresh()).toString();
+		
+			response = c.sendPost("https://genxapp.herokuapp.com/api/v1/login/refresh/?format=json", payload);
+			
+		} catch (JSONException e) {
+			
+			e.printStackTrace();
+		}
+    	
+    	TokenModel tokenAbsoluto  = jsonConversor.fromJson(response, TokenModel.class);
+    	
+    	// System.out.println(tokenAbsoluto);
+    	// System.out.println(response);
+    	
+    	String responseUser = c.sendGet("https://genxapp.herokuapp.com/api/v1/users_auth/?format=json", tokenAbsoluto.getAccess());
+    	
+    	try {
+			JSONObject jo2 = new JSONObject(responseUser);
+			
+			String rstring = jo2.getString("results");
+			System.out.println(rstring);
+			
+			Type t = new TypeToken<ArrayList<UserModel>>() {}.getType();
+			
+			ArrayList<UserModel> lum = jsonConversor.fromJson(rstring, t);
+			
+			System.out.println(lum);
+			
+		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
-		
 		}
-    }
     	
-    public static void name() {	
-        App.object2Json();
-        App.array2Json();
-        App.string2Json();
-        App.stringArray2Json();
-        App.Json2Login(true);
-        App.getAllUsers();      
-    }    
+    	
+    	
+    }
+    
+    public static void name() {
+    	 App.object2Json();
+         App.array2Json();
+         App.string2Json();
+         
+         App.getAllUsers();
+	}
    
     public static void getAllUsers() {
     	
@@ -132,19 +159,19 @@ public class App {
 
     public static void array2Json() {
     	// lista de texto //
-    			ArrayList<String> lista = new ArrayList<String>();
-    			lista.add("breno@gmail.com");
-    			lista.add("bernar@teste.com");
-    			lista.add("javeiro@php.com");
-    			
-    			// --- convertendo para json --- //
-    			Gson gson = new Gson();
-    			String json = gson.toJson(lista);
-    			
-    			// --- exibindo json --- //
-    			System.out.println(json);
+		ArrayList<String> lista = new ArrayList<String>();
+		lista.add("breno@gmail.com");
+		lista.add("bernar@teste.com");
+		lista.add("javeiro@php.com");
+		
+		// --- convertendo para json --- //
+		Gson gson = new Gson();
+		String json = gson.toJson(lista);
+		
+		// --- exibindo json --- //
+		System.out.println(json);
 	}
-    
+    				
     public static void stringArray2Json() {
     	String json = "[\"victormenegusso@gmail.com\",\"teste@teste.com\",\"javeiro@php.com\"]";
 		
@@ -165,7 +192,8 @@ public class App {
     	String json = "{\"username\":\"Victor\",\"password\":\"victormenegusso@gmail.com\"}";
 		
 		// --- transformando em Objeto Java --- //
-		Gson gson = new Gson(); // conversor
+		Gson gson = new Gson(); 
+		
 		UserModel objusr = gson.fromJson(json, UserModel.class);
 		
 		System.out.println(objusr);

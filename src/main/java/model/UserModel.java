@@ -26,5 +26,10 @@ public class UserModel implements Model {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    @Override
+	public String toString() {
+		return "UserModel [username=" + username + ", password=" + password + "]";
+	}
 
 }
