@@ -1,7 +1,7 @@
 package helpers;
 
 import com.google.gson.Gson;
-
+import config.Endpoint;
 import model.TokenModel;
 import model.UserModel;
 import model.LoginRequestModel;
@@ -18,8 +18,7 @@ public class LogingRequest implements LoginRequestModel{
 
 	public LoginRequestModel assembleLoginRequest (UserModel user) {		
     	userJson = JsonConversor.toJson(user);
-    	urlEndPoint = "https://genxapp.herokuapp.com"
-    					+"/api/v1/login/?format=json";
+    	urlEndPoint = Endpoint.getAuthentication();
     	return this;
 	}
 	
