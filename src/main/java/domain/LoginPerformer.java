@@ -1,6 +1,5 @@
 package domain;
 
-import serializer.UserSerializer;
 import model.UserModel;
 import helpers.LogingRequest;
 import model.TokenModel;
