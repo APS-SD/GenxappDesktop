@@ -24,14 +24,22 @@ public class TokenModel implements Model {
     public String getRefresh() {
         return refresh;
     }
-
+    
     public void setRefresh(String refresh) {
         this.refresh = refresh;
+    }
+
+    public String getDefinitiveAccess() {
+		return definitiveAccess;
+	}	
+    
+    public void setDefinitiveAccess(String definitiveAccess) {
+        this.definitiveAccess = definitiveAccess;
     }
     
     @Override
     public String toString() {
-        return "TokenModel{" + "access=" + access + ", refresh=" + refresh + '}';
+        return "TokenModel{" + "access=" + access + ", refresh=" + refresh + ", definitiveAccess=" + definitiveAccess +'}';
     }
 
     
