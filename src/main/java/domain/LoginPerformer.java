@@ -1,25 +1,39 @@
 package domain;
 
-import serializer.UserSerializer;
-import model.UserModel;
-import helpers.LogingRequest;
+import helpers.LoginRequestFactory;
+import helpers.RefreshRequestFactory;
 import model.TokenModel;
+import model.UserModel;
+import domain.Session;
+
 
 public class LoginPerformer {
-	LogingRequest login;
+	TokenModel token;
+	UserModel user;
+	
+	private void requestPrimaryLogin() throws Exception {//Change to loginException
+		token = LoginRequestFactory
+					.getLoginRequest()
+					.assembleLoginRequest(user)
+					.sendLoginRequest()
+				.getToken();
+				
+	}
+	
+	private void requestDefinitiveLogin()throws Exception{
+		token = RefreshRequestFactory
+					.getRefreshRequest(token)
+					.assembleRefreshRequest(token)
+					.sendRefreshRequest()
+				.getToken();
+	}
 
-	public static void performLogin(UserModel user) throws Exception{
+	public void performLogin(UserModel user) throws Exception{		
+		this.user = user;
+		requestPrimaryLogin();
+		requestDefinitiveLogin();
+								
 		
-		LoginPerformer lp = new LoginPerformer();
-		
-		lp.login = new LogingRequest();
-		
-		TokenModel tm = lp.login
-							.assembleLoginRequest(user)
-							.sendLoginRequest();		
-		
-		//Remove
-		System.out.println(tm.getAccess());
-									
+		System.out.println(token.toString());
 	}
 }

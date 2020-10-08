@@ -6,4 +6,8 @@ public abstract class Endpoint {
 	public static String getAuthentication() {		
 		return rootURL + "login/?format=json";
 	}
+	
+	public static String getRefresh() {		
+		return rootURL + "login/refresh/?format=json";
+	}
 }
