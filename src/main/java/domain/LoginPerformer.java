@@ -28,12 +28,13 @@ public class LoginPerformer {
 				.getToken();
 	}
 
-	public void performLogin(UserModel user) throws Exception{		
-		this.user = user;
-		requestPrimaryLogin();
-		requestDefinitiveLogin();
+	public static void performLogin(UserModel user) throws Exception{		
+		LoginPerformer lp = new LoginPerformer();
+		lp.user = user;
+		lp.requestPrimaryLogin();
+		lp.requestDefinitiveLogin();
 								
 		
-		System.out.println(token.toString());
+		System.out.println(lp.token.toString());
 	}
 }

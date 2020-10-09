@@ -18,8 +18,7 @@ public class LoginView {
             Login lg = new Login();
             lg.Logon(login,senha);
         } catch (Exception e) {
-            
-           
+        	e.printStackTrace();
         }
         
     } 
