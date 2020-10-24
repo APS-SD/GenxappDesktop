@@ -5,11 +5,45 @@
  */
 package domain;
 
-import model.UserModel;
+import model.UserLoginModel;
 import model.TokenModel;
 
 public class Session {
-    UserModel user = null;
-    TokenModel token = null;
+	static Session instance; 
+    private  UserLoginModel user = null;
+    private  TokenModel token = null;
+        
+    public static Session getSession() {
+    	if (instance == null) {
+    		instance = new Session();    		
+    	}
+    	return instance;
+    }
+    
+    public static Session getSession(UserLoginModel user, TokenModel token) {
+    	Session.getSession();
+    	Session.getSession().token = token;
+    	Session.getSession().user = user;
+    	
+    	return instance;
+    }
+
+	public UserLoginModel getUser() {
+		return user;
+	}
+
+	public void setUser(UserLoginModel user) {
+		this.user = user;
+	}
+
+	public TokenModel getToken() {
+		return token;
+	}
+
+	public void setToken(TokenModel token) {
+		this.token = token;
+	}
+    
+    
     
 }

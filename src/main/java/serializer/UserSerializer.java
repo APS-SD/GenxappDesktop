@@ -8,13 +8,13 @@ package serializer;
 import java.util.List;
 
 import com.google.gson.Gson;
-import model.UserModel;
+import model.UserLoginModel;
 
 public class UserSerializer implements Serializer {
 
 	@SuppressWarnings("hiding")
 	@Override
-    public <UserModel> String toStringJson(UserModel userModel) {
+    public <UserLoginModel> String toStringJson(UserLoginModel userModel) {
         
         Gson gson = new Gson();
         return gson.toJson(userModel);
@@ -28,7 +28,7 @@ public class UserSerializer implements Serializer {
 
 	@SuppressWarnings("hiding")
 	@Override
-	public <UserModel> List<UserModel> getAll() {
+	public <UserLoginModel> List<UserLoginModel> getAll() {
 
 		return null;
 	}

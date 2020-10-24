@@ -4,7 +4,7 @@ import model.RequestModel;
 import com.google.gson.Gson;
 import config.Endpoint;
 import model.TokenModel;
-import model.UserModel;
+import model.UserLoginModel;
 import model.LoginRequestModel;
 import model.RequestModel;
 
@@ -18,7 +18,7 @@ public class LoginRequest extends RequestModel implements LoginRequestModel{
 	}
 
 	@Override
-	public LoginRequestModel assembleLoginRequest (UserModel user) {		
+	public LoginRequestModel assembleLoginRequest (UserLoginModel user) {		
     	userJson = JsonConversor.toJson(user);
     	urlEndpoint = Endpoint.getAuthentication();
     	return this;

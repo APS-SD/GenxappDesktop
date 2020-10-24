@@ -3,13 +3,13 @@ package domain;
 import helpers.LoginRequestFactory;
 import helpers.RefreshRequestFactory;
 import model.TokenModel;
-import model.UserModel;
+import model.UserLoginModel;
 import domain.Session;
 
 
 public class LoginPerformer {
 	TokenModel token;
-	UserModel user;
+	UserLoginModel user;
 	
 	private void requestPrimaryLogin() throws Exception {//Change to loginException
 		token = LoginRequestFactory
@@ -28,13 +28,12 @@ public class LoginPerformer {
 				.getToken();
 	}
 
-	public static void performLogin(UserModel user) throws Exception{		
+	public static void performLogin(UserLoginModel user) throws Exception{		
 		LoginPerformer lp = new LoginPerformer();
 		lp.user = user;
 		lp.requestPrimaryLogin();
-		lp.requestDefinitiveLogin();
-								
-		
-		System.out.println(lp.token.toString());
+		lp.requestDefinitiveLogin();		
+	    
+		Session.getSession(lp.user, lp.token);	
 	}
 }
