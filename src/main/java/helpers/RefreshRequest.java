@@ -6,46 +6,45 @@ import org.json.JSONObject;
 import com.google.gson.Gson;
 
 import config.Endpoint;
-import model.RefreshRequestModel;
 import model.RequestModel;
 import model.TokenModel;
 
-public class RefreshRequest extends RequestModel implements RefreshRequestModel{
+public class RefreshRequest extends RequestModel{
 
-	private String payload;
-	
-	public RefreshRequest(TokenModel token) {
-		super();
-		super.token = token;
-		super.JsonConversor = new Gson();
-		super.client = new HTTPClient();
-		
-	}	
+    private String payload;
 
-	@Override
-	public RefreshRequestModel assembleRefreshRequest(TokenModel token) throws JSONException {
-		urlEndpoint = Endpoint.getRefresh();    	
-		
-    	JSONObject jo = new JSONObject();
+    public RefreshRequest(TokenModel token) {
+        super();
+        this.token = token;
+        this.client = new HTTPClient();
+        this.urlEndpoint = Endpoint.getRefresh();  
+        try {
+            this.payload = makePayload(token);
+        } catch (JSONException e) {
+            this.payload = "";
+        }
+    }	
+
+
+    private String makePayload(TokenModel token) throws JSONException {
         
-		payload = jo.put("refresh", token.getRefresh()).toString();
-					   		
-		return this;
-	}
+        JSONObject jo = new JSONObject();
 
-	@Override
-	public RefreshRequestModel sendRefreshRequest() {
-		super.token.setDefinitiveAccess(client
-				.sendPost(urlEndpoint
-							,payload)
-			);
-			
-		return this;
-	}
+        return jo.put("refresh", token.getRefresh()).toString();
+    }
 
-	@Override
-	public TokenModel getToken() {
-		return super.token;
-	}
+    private void sendRequest() {
+        
+        String definitive_token = this.client.sendPost(this.urlEndpoint,this.payload);
+        
+        this.token.setDefinitiveAccess(definitive_token);
+    }
+
+    public TokenModel getToken(){
+        
+        this.sendRequest();
+        return this.token;
+    }
+
 
 }

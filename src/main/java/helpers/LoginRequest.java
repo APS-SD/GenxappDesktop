@@ -1,40 +1,28 @@
 package helpers;
 
-import model.RequestModel; 
 import com.google.gson.Gson;
 import config.Endpoint;
 import model.TokenModel;
 import model.UserLoginModel;
-import model.LoginRequestModel;
 import model.RequestModel;
 
-public class LoginRequest extends RequestModel implements LoginRequestModel{
+public class LoginRequest extends RequestModel{
 	
-	public LoginRequest() {
-		super();
-		JsonConversor = new Gson();
-		client = new HTTPClient();
-		
-	}
+    protected String userJson;
 
-	@Override
-	public LoginRequestModel assembleLoginRequest (UserLoginModel user) {		
-    	userJson = JsonConversor.toJson(user);
-    	urlEndpoint = Endpoint.getAuthentication();
-    	return this;
-	}
-	
-	@Override
-	public LoginRequestModel  sendLoginRequest() throws Exception{
-		this.token = JsonConversor.fromJson(
-										client.sendPost(urlEndpoint,userJson)
-										,TokenModel.class
-									);
-		return this;
-	}
+    public LoginRequest(UserLoginModel user) {
+        super();
+        this.JsonConversor = new Gson();
+        this.client = new HTTPClient();
+        this.userJson = JsonConversor.toJson(user);
+        this.urlEndpoint = Endpoint.getAuthentication();          
+    }
+    
+    private TokenModel sendRequest() throws Exception{
+        return JsonConversor.fromJson(client.sendPost(urlEndpoint,userJson),TokenModel.class);
+    }
 
-	@Override
-	public TokenModel getToken() {
-		return this.token;
-	}
+    public TokenModel getToken() throws Exception{
+        return this.sendRequest();
+    }
 }

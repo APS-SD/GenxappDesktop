@@ -5,7 +5,7 @@
  */
 package view;
 
-import controller.Login;
+import controller.UsuarioController;
 
 /**
  *
@@ -15,7 +15,7 @@ public class LoginView {
     
     public static void callLogin(String login, String senha){
         try {
-            Login lg = new Login();
+            UsuarioController lg = new UsuarioController();
             lg.Logon(login,senha);
         } catch (Exception e) {
         	e.printStackTrace();

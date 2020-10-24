@@ -9,7 +9,8 @@ import model.UserLoginModel;
 import model.TokenModel;
 
 public class Session {
-	static Session instance; 
+    
+    static Session instance; 
     private  UserLoginModel user = null;
     private  TokenModel token = null;
         
@@ -20,30 +21,30 @@ public class Session {
     	return instance;
     }
     
-    public static Session getSession(UserLoginModel user, TokenModel token) {
-    	Session.getSession();
-    	Session.getSession().token = token;
-    	Session.getSession().user = user;
+    public static void setSession(UserLoginModel user, TokenModel token) {
     	
-    	return instance;
+    	Session s = Session.getSession();
+        s.setToken(token);
+    	s.setUser(user);
+        
     }
 
-	public UserLoginModel getUser() {
-		return user;
-	}
+    public UserLoginModel getUser() {
+            return user;
+    }
 
-	public void setUser(UserLoginModel user) {
-		this.user = user;
-	}
+    public void setUser(UserLoginModel user) {
+            this.user = user;
+    }
 
-	public TokenModel getToken() {
-		return token;
-	}
+    public TokenModel getToken() {
+            return token;
+    }
 
-	public void setToken(TokenModel token) {
-		this.token = token;
-	}
-    
+    public void setToken(TokenModel token) {
+            this.token = token;
+    }
+
     
     
 }

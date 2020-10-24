@@ -1,39 +1,34 @@
 package domain;
 
-import helpers.LoginRequestFactory;
-import helpers.RefreshRequestFactory;
+import helpers.LoginRequest;
+import helpers.RefreshRequest;
 import model.TokenModel;
 import model.UserLoginModel;
-import domain.Session;
 
 
-public class LoginPerformer {
-	TokenModel token;
-	UserLoginModel user;
+public abstract class LoginPerformer {
 	
-	private void requestPrimaryLogin() throws Exception {//Change to loginException
-		token = LoginRequestFactory
-					.getLoginRequest()
-					.assembleLoginRequest(user)
-					.sendLoginRequest()
-				.getToken();
-				
+	public static TokenModel requestPrimaryLogin(UserLoginModel user) throws Exception {//Change to loginException
+            return new LoginRequest(user).getToken();		
 	}
 	
-	private void requestDefinitiveLogin()throws Exception{
-		token = RefreshRequestFactory
-					.getRefreshRequest(token)
-					.assembleRefreshRequest(token)
-					.sendRefreshRequest()
-				.getToken();
+	public static TokenModel requestDefinitiveLogin(TokenModel token)throws Exception{
+            return new RefreshRequest(token).getToken();
 	}
 
-	public static void performLogin(UserLoginModel user) throws Exception{		
-		LoginPerformer lp = new LoginPerformer();
-		lp.user = user;
-		lp.requestPrimaryLogin();
-		lp.requestDefinitiveLogin();		
-	    
-		Session.getSession(lp.user, lp.token);	
+	public static void performLogin(UserLoginModel user) throws Exception{				
+            LoginPerformer.performLogin(user, true);
+	}
+        
+        public static void performLogin(UserLoginModel user, boolean kind) throws Exception{		
+		
+            TokenModel token = LoginPerformer.requestPrimaryLogin(user);
+
+            if (kind){
+                token = LoginPerformer.requestDefinitiveLogin(token);		
+            }
+
+            Session.setSession(user, token);	
+                
 	}
 }
