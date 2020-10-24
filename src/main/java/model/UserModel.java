@@ -7,8 +7,11 @@ public class UserModel implements Model {
     private String lastName;
     private String email;        
 
-	public UserModel(String username, String password, String firstName, String lastName, String email) {
-		super();
+    public UserModel() {
+    	this("", "", "", "", "");
+    }
+	
+    public UserModel(String username, String password, String firstName, String lastName, String email) {
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
