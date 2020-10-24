@@ -58,7 +58,7 @@ public class UserModel implements Model {
 
 	@Override
 	public String toString() {
-		return "UserLoginModel [username=" + this.getUsername() + ", password=" + this.getPassword() + "]";
+		return "CredentialLoginModel [username=" + this.getUsername() + ", password=" + this.getPassword() + "]";
 	}
 
 }

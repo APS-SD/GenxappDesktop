@@ -1,12 +1,12 @@
 package model;
 
 
-public class UserLoginModel implements Model {    
+public class CredentialLoginModel implements Model {    
 	
 	private String username;
     private String password;    
 
-    public UserLoginModel(String username, String password) {
+    public CredentialLoginModel(String username, String password) {
 		super();
 		this.username = username;
 		this.password = password;		
@@ -30,7 +30,7 @@ public class UserLoginModel implements Model {
     
     @Override
 	public String toString() {
-		return "UserLoginModel [username=" + username + ", password=" + password + "]";
+		return "CredentialLoginModel [username=" + username + ", password=" + password + "]";
 	}
 
 }

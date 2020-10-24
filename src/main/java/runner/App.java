@@ -10,7 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import helpers.HTTPClient;
-import model.UserLoginModel;
+import model.CredentialLoginModel;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class App {
     	
     	Gson jsonConversor = new Gson();
     	
-    	UserLoginModel m = new UserLoginModel("br", "br");
+    	CredentialLoginModel m = new CredentialLoginModel("br", "br");
     	
     	String json = jsonConversor.toJson(m);
     	
@@ -66,9 +66,9 @@ public class App {
 			String rstring = jo2.getString("results");
 			System.out.println(rstring);
 			
-			Type t = new TypeToken<ArrayList<UserLoginModel>>() {}.getType();
+			Type t = new TypeToken<ArrayList<CredentialLoginModel>>() {}.getType();
 			
-			ArrayList<UserLoginModel> lum = jsonConversor.fromJson(rstring, t);
+			ArrayList<CredentialLoginModel> lum = jsonConversor.fromJson(rstring, t);
 			
 			System.out.println(lum);
 			
@@ -119,11 +119,11 @@ public class App {
             
             String json =  jsonObj.getString("results");
             
-            Type tipoLista = new TypeToken<ArrayList<UserLoginModel>>() {}.getType();
+            Type tipoLista = new TypeToken<ArrayList<CredentialLoginModel>>() {}.getType();
             
-            ArrayList<UserLoginModel> lista = gson.fromJson(json, tipoLista);
+            ArrayList<CredentialLoginModel> lista = gson.fromJson(json, tipoLista);
     		
-    		for(UserLoginModel um: lista ) {
+    		for(CredentialLoginModel um: lista ) {
     			System.out.println(um.getUsername());
     		}
    
@@ -150,7 +150,7 @@ public class App {
         // --- transformando em Objeto Json--- //
         Gson gson = new Gson(); // conversor
         
-        UserLoginModel user = new UserLoginModel("br", "br");
+        CredentialLoginModel user = new CredentialLoginModel("br", "br");
 
         String json = gson.toJson(user);
 
@@ -194,7 +194,7 @@ public class App {
 		// --- transformando em Objeto Java --- //
 		Gson gson = new Gson(); 
 		
-		UserLoginModel objusr = gson.fromJson(json, UserLoginModel.class);
+		CredentialLoginModel objusr = gson.fromJson(json, CredentialLoginModel.class);
 		
 		System.out.println(objusr);
 	}
@@ -208,7 +208,7 @@ public class App {
         HTTPClient request = new HTTPClient();
 
         // Serialização de Objetos
-        UserLoginModel um = new UserLoginModel("br", "br");
+        CredentialLoginModel um = new CredentialLoginModel("br", "br");
         String json = new UserSerializer().toStringJson(um);
 
         //  Deserialização de objetos

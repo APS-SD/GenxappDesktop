@@ -1,21 +1,24 @@
-package helpers;
+package domain;
 
 import com.google.gson.Gson;
 import config.Endpoint;
+import helpers.HTTPClient;
 import model.TokenModel;
-import model.UserLoginModel;
+import model.CredentialLoginModel;
 import model.RequestModel;
 
 public class LoginRequest extends RequestModel{
 	
     protected String userJson;
 
-    public LoginRequest(UserLoginModel user) {
+    public LoginRequest() {
         super();
         this.JsonConversor = new Gson();
-        this.client = new HTTPClient();
-        this.userJson = JsonConversor.toJson(user);
+        this.client = new HTTPClient();        
         this.urlEndpoint = Endpoint.getAuthentication();          
+    }
+    public void assembleLogingRequest(CredentialLoginModel user) {
+    	this.userJson = JsonConversor.toJson(user);
     }
     
     private TokenModel sendRequest() throws Exception{
@@ -25,4 +28,8 @@ public class LoginRequest extends RequestModel{
     public TokenModel getToken() throws Exception{
         return this.sendRequest();
     }
+    
+    
+        
+    
 }

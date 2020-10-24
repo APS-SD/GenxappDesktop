@@ -5,13 +5,13 @@
  */
 package domain;
 
-import model.UserLoginModel;
+import model.CredentialLoginModel;
 import model.TokenModel;
 
 public class Session {
     
     static Session instance; 
-    private  UserLoginModel user = null;
+    private  CredentialLoginModel user = null;
     private  TokenModel token = null;
         
     public static Session getSession() {
@@ -21,19 +21,19 @@ public class Session {
     	return instance;
     }
     
-    public static void setSession(UserLoginModel user, TokenModel token) {
+    public static void setSession(CredentialLoginModel user, TokenModel token) {
     	
     	Session s = Session.getSession();
         s.setToken(token);
-    	s.setUser(user);
+    	s.setUser(user);    
         
     }
 
-    public UserLoginModel getUser() {
+    public CredentialLoginModel getUser() {
             return user;
     }
 
-    public void setUser(UserLoginModel user) {
+    public void setUser(CredentialLoginModel user) {
             this.user = user;
     }
 
