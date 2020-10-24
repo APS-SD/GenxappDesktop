@@ -9,12 +9,16 @@ public class UserController{
 	private UserRequest request;
 	
 	
+<<<<<<< HEAD
 	public UserController(UserRequest request) {
 		super();
 		this.request = request;
 	}
 
 	public UserModel create(String... args){
+=======
+	public Response create(String... args){
+>>>>>>> Feature
 		UserModel user = null; 
 		
 		try {
@@ -22,10 +26,14 @@ public class UserController{
 		} catch (Exception e) {
 			
 			e.printStackTrace();
+<<<<<<< HEAD
 		}
 		
 		request.createUser(user);
 		
+=======
+		}		
+>>>>>>> Feature
 		return null;		
 	}
 
