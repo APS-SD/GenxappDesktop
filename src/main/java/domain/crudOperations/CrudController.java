@@ -1,4 +1,4 @@
-package controller.crudOperations;
+package domain.crudOperations;
 
 public abstract class CrudController <T> implements CreateMixIn<T>,
 													UpdateMixIn<T>,
