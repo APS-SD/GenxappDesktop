@@ -26,18 +26,26 @@ public abstract class LoginPerformer {
 	}
 
         
-	public static void performLogin(CredentialLoginModel user) throws Exception{				
-            LoginPerformer.performLogin(user, true);
+	public static boolean performLogin(CredentialLoginModel user){				
+            return LoginPerformer.performLogin(user, true);
 	}
         
-	public static void performLogin(CredentialLoginModel user, boolean kind) throws Exception{		
+	public static boolean performLogin(CredentialLoginModel user, boolean kind) {		
 	
-	    TokenModel token = LoginPerformer.requestPrimaryLogin(user);
+            try {
+                TokenModel token = LoginPerformer.requestPrimaryLogin(user);
 	
-	    if (kind){
-	        token = LoginPerformer.requestDefinitiveLogin(token);		
-	    }
-	
-	    Session.setSession(user, token);	                
+                if (kind){
+                    token = LoginPerformer.requestDefinitiveLogin(token);		
+                }
+
+                Session.setSession(user, token);	                
+                
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
+
+	    
 	}
 }

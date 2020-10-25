@@ -5,9 +5,6 @@
  */
 package view;
 
-import controller.UserController;
-import helpers.HTTPClient;
-
 /**
  *
  * @author LC_Note
@@ -15,8 +12,12 @@ import helpers.HTTPClient;
 public class LoginView {
     
     public static void callLogin(String login, String senha){
-        HTTPClient c = new HTTPClient();
-        
+        try {
+            
+        } catch (Exception e) {
+            
+           
+        }
         
     } 
 }

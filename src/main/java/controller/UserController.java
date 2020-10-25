@@ -14,18 +14,17 @@ public class UserController{
 		this.request = new UserRequest();
 	}
 
-	public String create(String username, String password, String email,String firstName, String lastName ){
+	public String create(String username, String password, String email,String firstName, String lastName ) throws Exception{
 
 		UserModel user = null; 
-		
+		String response = "";
+                
 		try {
 		    user = UserFactory.create(username, password,  email, firstName, lastName );
-                    
+                    response = this.request.createUser(user);
 		} catch (Exception e) {
-		    System.err.println("usuario nao criado");
+		    throw new Exception(e);
 		}
-		
-		String response = this.request.createUser(user);
 		
                 return response;
 	}

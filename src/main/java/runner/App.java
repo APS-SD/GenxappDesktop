@@ -24,12 +24,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import serializer.TokenSerializer;
 import serializer.UserSerializer;
+import view.LoginForm;
 
 public class App {
 
     public static void main(String[] args) {
     	
-
+        new LoginForm().setVisible(true);
     	/*
         
         
@@ -86,9 +87,18 @@ public class App {
     	
         */
         
+        
+    }
+    
+    public static void crud(){
+        
         ControllerGateway cg =  new ControllerGateway();
         UserController uc = new UserController();
-        uc.create("bre", "bre", "breno@breno.com.br", "bern", "Bern");
+        try {
+            uc.create("bre", "bre", "breno@breno.com.br", "bern", "Bern");
+        } catch (Exception ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         
         boolean result = cg.logon("bre", "bre");
@@ -103,7 +113,6 @@ public class App {
         }
         
     }
-    
     public static void name() {
     	 App.object2Json();
          App.array2Json();

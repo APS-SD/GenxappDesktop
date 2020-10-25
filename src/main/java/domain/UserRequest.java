@@ -16,7 +16,7 @@ public class UserRequest extends RequestModel{
         }
 
         
-	public String createUser(UserModel user) {
+	public String createUser(UserModel user) throws Exception {
             String strUser = this.serializer.toStringJson(user);
             String response = "";
             
@@ -26,6 +26,7 @@ public class UserRequest extends RequestModel{
                 
             } catch (Exception e) {
                 // colocar exception aqui
+                throw new Exception(response);
             }
 
             return response;
