@@ -1,9 +1,6 @@
 package domain;
 
 import model.TokenModel;
-import domain.LoginRequest;
-import domain.RefreshRequest;
-import domain.Session;
 import model.CredentialLoginModel;
 
 
@@ -13,16 +10,27 @@ public abstract class LoginPerformer {
         
             LoginRequest processor = new LoginRequest();
             processor.assembleLogingRequest(user);
-		
-            return processor.getToken();		
+            
+            boolean isSuccess = processor.assembleToken();
+            
+            if(isSuccess){
+                return processor.getToken();		
+            }else{
+                throw new Exception("Erro ao logar");
+            }
 	}
 	
 	public static TokenModel requestDefinitiveLogin(TokenModel token)throws Exception{
         
             RefreshRequest processor =  new RefreshRequest();
-            processor.assembleToken(token);
+            
+            boolean isSuccess = processor.assembleToken(token);
         
-            return processor.getToken();
+            if(isSuccess){
+                return processor.getToken();
+            }else{
+                throw new Exception("Erro no login secundário");
+            }
 	}
 
         

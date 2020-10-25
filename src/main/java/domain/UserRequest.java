@@ -16,68 +16,33 @@ public class UserRequest extends RequestModel{
         }
 
         
-	public String createUser(UserModel user) throws Exception {
-            String strUser = this.serializer.toStringJson(user);
-            String response = "";
+	public Response createUser(UserModel user) {
             
-            try {
-                // teria que ser tratado aqui
-                response = this.client.sendPost(Endpoint.getUser(), strUser); 
-                
-            } catch (Exception e) {
-                // colocar exception aqui
-                throw new Exception(response);
-            }
-
-            return response;
+            String strUser = this.serializer.toStringJson(user);
+            
+            return this.client.sendPost(Endpoint.getUser(), strUser); 
 	}
 	
-	public UserModel retrievetUser() {
+	public Response retrievetUser() {
             
             String acessToken = this.session.getToken().getAccess();
-            UserModel user = null;
             
-            try {
-               
-               String response = this.client.sendGet(Endpoint.getUserAtuh(), acessToken);
-               user = this.serializer.Json2Object(response);
-               
-            } catch (Exception e) {
-                System.out.println("Erro no Retorno do Usuário");
-            }
+            return this.client.sendGet(Endpoint.getUserAtuh(), acessToken);
             
-            return user;
 	}
 	
-	public UserModel updateUser(UserModel user) {
+	public Response updateUser(UserModel user) {
             
             String acessToken = this.session.getToken().getAccess();
             String strUser = this.serializer.toStringJson(user);
-            
-            try {
-                
-               String response = this.client.sendPut(Endpoint.getUserAtuh(), strUser,acessToken);
-               user = this.serializer.Json2Object(response);
-               
-            } catch (Exception e) {
-                System.out.println("Erro ao alterar o Usuário");
-            }
-            
-            return user;
+             
+            return this.client.sendPut(Endpoint.getUserAtuh(), strUser,acessToken);
 	}
 	
-	public String deleteUser() {
+	public Response deleteUser() {
+          
             String acessToken = this.session.getToken().getAccess();
-            String response = "";
             
-            try {
-               
-               response = this.client.sendDelete(Endpoint.getUserAtuh(), acessToken);
-               
-            } catch (Exception e) {
-                System.out.println("Erro no Deletar o Usuário");
-            }
-            
-            return response;
+            return this.client.sendDelete(Endpoint.getUserAtuh(), acessToken);
 	}
 }

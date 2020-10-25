@@ -1,7 +1,7 @@
 package controller;
 
 import domain.LoginPerformer;
-import helpers.UserBuilder;
+import helpers.userHelpers.UserBuilder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.CredentialLoginModel;

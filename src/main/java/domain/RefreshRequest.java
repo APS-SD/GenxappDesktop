@@ -37,23 +37,29 @@ public class RefreshRequest extends RequestModel{
         return jo.put("refresh", token.getRefresh()).toString();
     }
 
-    private String GetRequestResponse() {
-        
-        return this.client.sendPost(this.urlEndpoint,this.payload);
-               
+    private Response GetRequestResponse() {
+           
+        return this.client.sendPost(this.urlEndpoint,this.payload);       
     }
     
-    public void assembleToken(TokenModel token){
-    	initializeRequest(token);
+    public boolean assembleToken(TokenModel token){
+    	// nao existe token definitivo separado do access
+       
+        initializeRequest(token);
     	
-        String definitiveToken = this.GetRequestResponse();
+        Response response = this.GetRequestResponse();
         
-       
-        this.token.setRefresh(null);
+        if(response.getStatus_code() == 200){        
+            
+            this.token = JsonConversor.fromJson(response.getContent(),TokenModel.class);
+            this.token.setRefresh(null);
+            
+        }else{
+            return false;
+        }
         
-        // nao existe token definitivo
-        this.token = JsonConversor.fromJson(definitiveToken,TokenModel.class);
-       
+        return true;
+        
     }
     
     public TokenModel getToken() {

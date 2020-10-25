@@ -20,18 +20,25 @@ public class LoginRequest extends RequestModel{
     
     public void assembleLogingRequest(CredentialLoginModel user) {
     	this.userJson = JsonConversor.toJson(user);
+    
     }
     
-    private TokenModel sendRequest() throws Exception{
+    public boolean assembleToken(){
         System.out.println(this.urlEndpoint);
-        System.out.println(this.userJson);
-        String json =  client.sendPost(this.urlEndpoint,this.userJson);
+        
+        Response response =  client.sendPost(this.urlEndpoint,this.userJson);
        
-        return JsonConversor.fromJson(json,TokenModel.class);
+        if(response.getStatus_code() == 200){        
+            this.token = JsonConversor.fromJson(response.getContent(),TokenModel.class);    
+        }else{
+            return false;
+        }
+        
+        return true;
     }
 
     public TokenModel getToken() throws Exception{
-        return this.sendRequest();
+        return this.token;
     }
     
     
