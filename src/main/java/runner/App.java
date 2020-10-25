@@ -22,11 +22,12 @@ public class App {
     }
     
     public static void crud(){
+       
         ControllerGateway cg =  new ControllerGateway();
         UserController uc = new UserController();
         
         try {
-            String s = uc.create("bo", "bo", "breno@breno.com.br", "bern", "Bern");
+            boolean s = uc.create("bo", "bo", "breno@breno.com.br", "bern", "Bern");
             System.out.println(s);
         } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
@@ -48,8 +49,7 @@ public class App {
                 System.out.println(e);
             }
         }
-       
-        
+         
     }
    
 }

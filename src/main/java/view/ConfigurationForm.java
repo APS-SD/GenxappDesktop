@@ -5,19 +5,37 @@
  */
 package view;
 
+import controller.LoginController;
 import controller.UserController;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import model.UserModel;
 
-public class CadastrarForm extends javax.swing.JFrame {
+public class ConfigurationForm extends javax.swing.JFrame {
 
+    
+    private UserController uc;
     /**
      * Creates new form CadastrarForm
      */
-    public CadastrarForm() {
+    public ConfigurationForm() {
         initComponents();
+        LoginController.logon("brn", "brn");
+        
+        this.uc =  new UserController();
+        if(this.uc.retrieve()){
+            UserModel um = this.uc.getUserResponse();
+            
+            jtxtNome.setText(um.getFirstName());
+            jtxtSobrenome.setText(um.getLastName());
+            jtxtEmail.setText(um.getEmail());
+            jtxtSenha.setText(um.getPassword());
+            jtxtUsername.setText(um.getUsername());
+        }
+        
+        this.alterarEstado(false);
     }
 
     /**
@@ -37,18 +55,15 @@ public class CadastrarForm extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jtxtUsername = new javax.swing.JTextField();
-        jButtonCadastrar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabelCadastro = new javax.swing.JLabel();
+        jtxtDeletar = new javax.swing.JButton();
         jtxtNome = new javax.swing.JTextField();
         jtxtSobrenome = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jtxtSenha = new javax.swing.JPasswordField();
         jLabel6 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jtxtConfirmarSenha = new javax.swing.JPasswordField();
         jtxtEmail = new javax.swing.JTextField();
+        jtxtEditar = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -57,7 +72,7 @@ public class CadastrarForm extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Cadastro");
+        jLabel1.setText("Informações Usuário");
 
         jLabelClose.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabelClose.setForeground(new java.awt.Color(255, 255, 255));
@@ -117,28 +132,13 @@ public class CadastrarForm extends javax.swing.JFrame {
         jtxtUsername.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jtxtUsername.setForeground(new java.awt.Color(228, 241, 254));
 
-        jButtonCadastrar.setBackground(new java.awt.Color(89, 171, 227));
-        jButtonCadastrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButtonCadastrar.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonCadastrar.setText("Cadastrar");
-        jButtonCadastrar.addActionListener(new java.awt.event.ActionListener() {
+        jtxtDeletar.setBackground(new java.awt.Color(240, 52, 52));
+        jtxtDeletar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jtxtDeletar.setForeground(new java.awt.Color(255, 255, 255));
+        jtxtDeletar.setText("Deletar");
+        jtxtDeletar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCadastrarActionPerformed(evt);
-            }
-        });
-
-        jButton2.setBackground(new java.awt.Color(240, 52, 52));
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Cancelar");
-
-        jLabelCadastro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabelCadastro.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelCadastro.setText("Clique aqui para ir a tela de login ");
-        jLabelCadastro.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabelCadastro.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelCadastroMouseClicked(evt);
+                jtxtDeletarActionPerformed(evt);
             }
         });
 
@@ -149,6 +149,11 @@ public class CadastrarForm extends javax.swing.JFrame {
         jtxtSobrenome.setBackground(new java.awt.Color(108, 122, 137));
         jtxtSobrenome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jtxtSobrenome.setForeground(new java.awt.Color(228, 241, 254));
+        jtxtSobrenome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtSobrenomeActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(236, 240, 241));
@@ -166,54 +171,50 @@ public class CadastrarForm extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(236, 240, 241));
         jLabel6.setText("Senha:");
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(236, 240, 241));
-        jLabel9.setText("Confirma senha:");
-
-        jtxtConfirmarSenha.setBackground(new java.awt.Color(108, 122, 137));
-        jtxtConfirmarSenha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jtxtConfirmarSenha.setForeground(new java.awt.Color(228, 241, 254));
-
         jtxtEmail.setBackground(new java.awt.Color(108, 122, 137));
         jtxtEmail.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jtxtEmail.setForeground(new java.awt.Color(228, 241, 254));
+
+        jtxtEditar.setText("Editar");
+        jtxtEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtEditarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(83, 83, 83)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
-                        .addComponent(jButtonCadastrar))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(jLabelCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(107, 107, 107)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(203, 203, 203))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jtxtDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jtxtEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel7)
                             .addComponent(jLabel8)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)))
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jtxtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                    .addComponent(jtxtNome, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtxtSobrenome, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtxtSenha, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtxtConfirmarSenha)
-                    .addComponent(jtxtEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
-                .addGap(86, 86, 86))
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jtxtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                                .addComponent(jtxtNome, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jtxtSobrenome, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jtxtEmail, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jtxtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(183, 183, 183))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,29 +235,25 @@ public class CadastrarForm extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jtxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jtxtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jtxtConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabelCadastro)
-                .addGap(129, 129, 129))
+                    .addComponent(jtxtEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtxtDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(169, 169, 169))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,7 +269,7 @@ public class CadastrarForm extends javax.swing.JFrame {
 
     private void jLabelCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCloseMouseClicked
 
-        System.exit(0);
+        this.dispose();
 
     }//GEN-LAST:event_jLabelCloseMouseClicked
 
@@ -282,29 +279,76 @@ public class CadastrarForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jLabelMinMouseClicked
 
-    private void jLabelCadastroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCadastroMouseClicked
-        LoginForm log = new LoginForm();
-        log.setVisible(true);
-        log.pack();
-        log.setLocationRelativeTo(null);
-        log.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.dispose();
-
-    }//GEN-LAST:event_jLabelCadastroMouseClicked
-
-    private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
-        UserController uc = new UserController();
-        
-        boolean isSuccess = uc.create(
-                jtxtNome.getText(), jtxtSenha.getText(), jtxtEmail.getText(), jtxtNome.getText(), jtxtSobrenome.getText()
-        );
-        
-        if(isSuccess){
-            JOptionPane.showMessageDialog(null, uc.getTxtResponse());
+    private void jtxtDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtDeletarActionPerformed
+        // TODO add your handling code here:
+        if(jtxtEditar.isSelected()){
+            this.alterarEstado(false);
+        }else{
+           int iraExcluir = JOptionPane.showConfirmDialog(null, "Você deseja mesmo excluir sua conta");
+           
+           if(iraExcluir == JOptionPane.OK_OPTION){
+               if(this.uc.delete()){
+                    new LoginForm().setVisible(true);
+                    this.dispose();
+               }
+           }else{
+               System.out.println("OK cancelado");
+           }
+           
         }
+         
+    }//GEN-LAST:event_jtxtDeletarActionPerformed
+
+    
+    private void alterarEstado(boolean editavel){
+        if(editavel){
+            jtxtEditar.setText("Salvar");
+            jtxtDeletar.setText("Cancelar");
+        }else{
+            jtxtEditar.setText("Editar");
+            jtxtDeletar.setText("Deletar");
             
+        }
         
-    }//GEN-LAST:event_jButtonCadastrarActionPerformed
+        //editavel = !editavel;
+        
+        jtxtNome.setEnabled(editavel);
+        jtxtSobrenome.setEnabled(editavel);
+        jtxtUsername.setEnabled(editavel);
+        jtxtEmail.setEnabled(editavel);
+        jtxtSenha.setEnabled(editavel);
+        
+    }
+    
+    
+    private void jtxtSobrenomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtSobrenomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtSobrenomeActionPerformed
+
+    private void jtxtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtEditarActionPerformed
+        // TODO add your handling code here:
+        if(jtxtEditar.isSelected()){
+            this.alterarEstado(true);
+            
+        }else{
+            boolean response;
+            
+            
+            response = this.uc.update(jtxtUsername.getText(), jtxtSenha.getText(), jtxtEmail.getText(), jtxtNome.getText(), jtxtSobrenome.getText());
+        
+            String mensagem = "";
+            
+            if(response){
+                this.alterarEstado(false);
+                mensagem = "Salvo com sucesso";
+            }else{
+                mensagem = this.uc.getError();
+                jtxtEditar.setSelected(true);
+            }
+            
+            JOptionPane.showMessageDialog(null, mensagem);
+        }
+    }//GEN-LAST:event_jtxtEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -323,41 +367,40 @@ public class CadastrarForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastrarForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConfigurationForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastrarForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConfigurationForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastrarForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConfigurationForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastrarForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConfigurationForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadastrarForm().setVisible(true);
+                new ConfigurationForm().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButtonCadastrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabelCadastro;
     private javax.swing.JLabel jLabelClose;
     private javax.swing.JLabel jLabelMin;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jtxtConfirmarSenha;
+    private javax.swing.JButton jtxtDeletar;
+    private javax.swing.JToggleButton jtxtEditar;
     private javax.swing.JTextField jtxtEmail;
     private javax.swing.JTextField jtxtNome;
     private javax.swing.JPasswordField jtxtSenha;

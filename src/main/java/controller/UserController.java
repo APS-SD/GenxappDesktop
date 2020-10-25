@@ -9,57 +9,92 @@ import serializer.UserSerializer;
 
 public class UserController{
 	private final UserRequest request;
+        private UserModel userResponse;
+        private String txtResponse;
+        private String error;
         
 	public UserController() {	
             this.request = new UserRequest();
 	}
 
-	public String create(String username, String password, String email,String firstName, String lastName ) throws Exception{
+    public UserModel getUserResponse() {
+        return userResponse;
+    }
 
-            UserModel user = UserFactory.create(username, password,  email, firstName, lastName );
+    public void setUserResponse(UserModel userResponse) {
+        this.userResponse = userResponse;
+    }
+
+    public String getTxtResponse() {
+        return txtResponse;
+    }
+
+    public void setTxtResponse(String txtResponse) {
+        this.txtResponse = txtResponse;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+	public boolean create(String username, String password, String email,String firstName, String lastName ){
+
+            UserModel user = UserFactory.create(username, password,  email, firstName, lastName);
 
             Response response = this.request.createUser(user);
 
             if (response.getStatus_code() == 201){
-                return response.getContent();
+                this.txtResponse = response.getContent();
+                return true;
             }else{
-                throw new Exception(response.getContent());
+                this.error = response.getContent();
+                return false;
             }
                 
 	}
 
-	public UserModel update(String username, String password, String email,String firstName, String lastName ) throws Exception {
+	public boolean update(String username, String password, String email,String firstName, String lastName ){
 		
             UserModel user = UserFactory.create(username, password,  email, firstName, lastName );
 
             Response response = this.request.updateUser(user);
             
+            
             if (response.getStatus_code() == 200){
-                return new UserSerializer().Json2Object(response.getContent());
+                this.userResponse = new UserSerializer().Json2Object(response.getContent());
+                return true;
             }else{
-                throw new Exception(response.getContent());
+                this.error = response.getContent();
+                return false;
             }
 	}
 
-	public UserModel retrieve() throws Exception {
+	public boolean retrieve() {
            
             Response response = this.request.retrievetUser();
             
             if (response.getStatus_code() == 200){
-                return new UserSerializer().Json2Object(response.getContent());
+                this.userResponse = new UserSerializer().Json2Object(response.getContent());
+                return true;
             }else{
-                throw new Exception(response.getContent());
+                return false;
             }
 	}
 
-	public String delete() throws Exception {
+	public boolean delete() {
             
             Response response = this.request.deleteUser();
             
             if (response.getStatus_code() == 200){
-                return response.getContent();
+                this.txtResponse= response.getContent();
+                return true;
             }else{
-                throw new Exception(response.getContent());
+                this.error =  response.getContent();
+                return false;
             }
             
 	}
