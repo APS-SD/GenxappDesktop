@@ -7,8 +7,7 @@ package view;
 
 import controller.LoginController;
 import controller.UserController;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.UserModel;
@@ -22,7 +21,7 @@ public class ConfigurationForm extends javax.swing.JFrame {
      */
     public ConfigurationForm() {
         initComponents();
-        LoginController.logon("brn", "brn");
+        //LoginController.logon("brn", "brn");
         
         this.uc =  new UserController();
         if(this.uc.retrieve()){
