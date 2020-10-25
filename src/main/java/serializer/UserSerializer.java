@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import model.CredentialLoginModel;
+import model.UserModel;
 
 public class UserSerializer implements Serializer {
 
@@ -20,11 +21,11 @@ public class UserSerializer implements Serializer {
         return gson.toJson(userModel);
     }
 	
-	@Override
-	public Object Json2Object(String stringJson) {
-
-		return null;
-	}
+    
+    public UserModel Json2Object(String stringJson) {
+        Gson gson = new Gson();
+        return gson.fromJson(stringJson, UserModel.class);
+    }
 
 	@SuppressWarnings("hiding")
 	@Override

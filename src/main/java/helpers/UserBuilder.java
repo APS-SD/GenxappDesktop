@@ -4,8 +4,11 @@ import model.UserModel;
 
 public class UserBuilder {
 	private UserModel user;
-	
-	
+
+    public UserBuilder() {
+        this.user = new UserModel();
+    }
+
 	public UserBuilder setUserName(String userName) {
 		this.user.setUsername(userName);
 		return this;

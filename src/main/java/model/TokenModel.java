@@ -10,7 +10,7 @@ public class TokenModel implements Model {
            
     public String access;
     public String refresh;
-    public String definitiveAccess;
+    
     
 
     public String getAccess() {
@@ -28,18 +28,10 @@ public class TokenModel implements Model {
     public void setRefresh(String refresh) {
         this.refresh = refresh;
     }
-
-    public String getDefinitiveAccess() {
-		return definitiveAccess;
-	}	
-    
-    public void setDefinitiveAccess(String definitiveAccess) {
-        this.definitiveAccess = definitiveAccess;
-    }
-    
+        
     @Override
     public String toString() {
-        return "TokenModel{" + "access=" + access + ", refresh=" + refresh + ", definitiveAccess=" + definitiveAccess +'}';
+        return "TokenModel{" + "access=" + access + ", refresh=" + refresh +'}';
     }
 
     

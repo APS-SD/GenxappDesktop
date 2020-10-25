@@ -3,8 +3,8 @@ package model;
 public class UserModel implements Model {    
     private String username;
     private String password;
-	private String firstName;
-    private String lastName;
+	private String first_name;
+    private String last_name;
     private String email;        
 
     public UserModel() {
@@ -14,25 +14,25 @@ public class UserModel implements Model {
     public UserModel(String username, String password, String firstName, String lastName, String email) {
 		this.username = username;
 		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.first_name = firstName;
+		this.last_name = lastName;
 		this.email = email;
 	}
 
 	public String getFirstName() {
-		return firstName;
+		return first_name;
 	}
 
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		this.first_name = firstName;
 	}
 
 	public String getLastName() {
-		return lastName;
+		return last_name;
 	}
 
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		this.last_name = lastName;
 	}
 
 	public String getEmail() {

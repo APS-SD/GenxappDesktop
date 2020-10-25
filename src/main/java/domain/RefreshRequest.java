@@ -48,7 +48,12 @@ public class RefreshRequest extends RequestModel{
     	
         String definitiveToken = this.GetRequestResponse();
         
-        this.token.setDefinitiveAccess(definitiveToken);              
+       
+        this.token.setRefresh(null);
+        
+        // nao existe token definitivo
+        this.token = JsonConversor.fromJson(definitiveToken,TokenModel.class);
+       
     }
     
     public TokenModel getToken() {

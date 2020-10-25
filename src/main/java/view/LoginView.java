@@ -6,6 +6,7 @@
 package view;
 
 import controller.UserController;
+import helpers.HTTPClient;
 
 /**
  *
@@ -14,12 +15,8 @@ import controller.UserController;
 public class LoginView {
     
     public static void callLogin(String login, String senha){
-        try {
-            UserController lg = new UserController();
-            lg.Logon(login,senha);
-        } catch (Exception e) {
-        	e.printStackTrace();
-        }
+        HTTPClient c = new HTTPClient();
+        
         
     } 
 }

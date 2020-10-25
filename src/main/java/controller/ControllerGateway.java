@@ -1,25 +1,25 @@
 package controller;
 
+import domain.LoginPerformer;
 import helpers.UserBuilder;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.CredentialLoginModel;
+import model.UserModel;
 
 public class ControllerGateway {
 
-	public UserModel CreateUser(String... userArgs) throws Exception {
-		if (userArgs.length < 4) {
-			throw new Exception("teste");
-		}
-		
-		UserBuilder builder = new UserBuilder();
-		builder.setUserName(userArgs[0]);
-		builder.setPassword(userArgs[1]);
-		builder.setEmail(userArgs[2]);
-		builder.setFirstName(userArgs[3]);
-		
-		if (userArgs.length > 4) {
-			builder.setLastName(userArgs[4]);
-		}
-		 
-		return builder.getUser();
-	}
+	public boolean logon(String username, String password){
+            CredentialLoginModel clm = new  CredentialLoginModel(username, password);
+            
+            try {
+                LoginPerformer.performLogin(clm);
+                return true;
+            } catch (Exception ex) {
+                Logger.getLogger(ControllerGateway.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+            
+        }
 	
 }

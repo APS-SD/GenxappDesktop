@@ -10,4 +10,12 @@ public abstract class Endpoint {
 	public static String getRefresh() {		
 		return rootURL + "login/refresh/?format=json";
 	}
+        
+        public static String getUser(){
+            return rootURL + "user/?format=json";
+        }
+        
+        public static String getUserAtuh(){
+            return rootURL + "user_auth/?format=json";
+        }
 }

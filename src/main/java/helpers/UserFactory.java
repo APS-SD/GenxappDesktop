@@ -20,4 +20,15 @@ public class UserFactory {
 		 
 		return builder.get();
 	}
+        
+        public static UserModel create(String username, String password, String email,String firstName, String lastName ){
+                UserBuilder builder = new UserBuilder();
+		builder.setUserName(username);
+		builder.setPassword(password);
+		builder.setEmail(email);
+		builder.setFirstName(firstName);
+		builder.setLastName(lastName);
+	
+		return builder.get();
+        }
 }

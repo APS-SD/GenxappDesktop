@@ -12,9 +12,10 @@ public class HTTPClient {
 
     private final String USER_AGENT = "Mozilla/5.0";
     public HttpURLConnection request;
+    private int response;
 
     public HTTPClient() {
-
+        
     }
 
     public HTTPClient(HttpURLConnection request) {
@@ -104,6 +105,48 @@ public class HTTPClient {
                 // Conecta na URL:
                 this.request.connect();
 
+                
+                // Escreve o objeto JSON usando o OutputStream da requisição:
+                try (OutputStream outputStream = this.request.getOutputStream()) {
+                    outputStream.write(json.getBytes("UTF-8"));
+                }
+                
+                // Caso você queira usar o código HTTP para fazer alguma coisa, descomente esta linha.
+                return readResponse(this.request);
+            } finally {
+                this.request.disconnect();
+            }
+        } catch (IOException ex) {
+            System.out.println("");
+        }
+
+        return "Erro";
+    }
+    
+    public String sendPost(String url, String json, String token) {
+
+        try {
+            // Cria um objeto HttpURLConnection:
+            this.request = (HttpURLConnection) new URL(url).openConnection();
+
+            try {
+                // Define que a conexão pode enviar informações e obtê-las de volta:
+                this.request.setDoOutput(true);
+                this.request.setDoInput(true);
+
+                // Define o content-type:
+                this.request.setRequestProperty("Content-Type", "application/json");
+
+                // Define o método da requisição:
+                this.request.setRequestMethod("POST");
+
+                String authHeaderValue = "Bearer " + new String(token);    // cabeçalho de com autenticação
+
+                this.request.setRequestProperty("Authorization", authHeaderValue);   
+                
+                // Conecta na URL:
+                this.request.connect();
+
                 // Escreve o objeto JSON usando o OutputStream da requisição:
                 try (OutputStream outputStream = this.request.getOutputStream()) {
                     outputStream.write(json.getBytes("UTF-8"));
@@ -121,6 +164,126 @@ public class HTTPClient {
         return "Erro";
     }
 
+    public String sendPut(String url, String json, String token) {
+
+        try {
+            // Cria um objeto HttpURLConnection:
+            this.request = (HttpURLConnection) new URL(url).openConnection();
+
+            try {
+                // Define que a conexão pode enviar informações e obtê-las de volta:
+                this.request.setDoOutput(true);
+                this.request.setDoInput(true);
+
+                // Define o content-type:
+                this.request.setRequestProperty("Content-Type", "application/json");
+
+                // Define o método da requisição:
+                this.request.setRequestMethod("PUT");
+
+                String authHeaderValue = "Bearer " + new String(token);    // cabeçalho de com autenticação
+
+                this.request.setRequestProperty("Authorization", authHeaderValue);   
+                
+                // Conecta na URL:
+                this.request.connect();
+
+                // Escreve o objeto JSON usando o OutputStream da requisição:
+                try (OutputStream outputStream = this.request.getOutputStream()) {
+                    outputStream.write(json.getBytes("UTF-8"));
+                }
+
+                // Caso você queira usar o código HTTP para fazer alguma coisa, descomente esta linha.
+                return readResponse(this.request);
+            } finally {
+                this.request.disconnect();
+            }
+        } catch (IOException ex) {
+            System.out.println("");
+        }
+
+        return "Erro";
+    }
+    
+     
+    public String sendDelete(String url, String token) {
+
+        try {
+            // Cria um objeto HttpURLConnection:
+            this.request = (HttpURLConnection) new URL(url).openConnection();
+
+            try {
+                // Define que a conexão pode enviar informações e obtê-las de volta:
+                this.request.setDoOutput(true);
+                this.request.setDoInput(true);
+
+                // Define o content-type:
+                this.request.setRequestProperty("Content-Type", "application/json");
+
+                // Define o método da requisição:
+                this.request.setRequestMethod("DELETE");
+
+                String authHeaderValue = "Bearer " + new String(token);    // cabeçalho de com autenticação
+
+                this.request.setRequestProperty("Authorization", authHeaderValue);   
+                
+                // Conecta na URL:
+                this.request.connect();
+
+                // Caso você queira usar o código HTTP para fazer alguma coisa, descomente esta linha.
+                return readResponse(this.request);
+            } finally {
+                this.request.disconnect();
+            }
+        } catch (IOException ex) {
+            System.out.println("");
+        }
+
+        return "Erro";
+    }
+    
+    
+    public String sendDelete(String url, String json, String token) {
+
+        try {
+            // Cria um objeto HttpURLConnection:
+            this.request = (HttpURLConnection) new URL(url).openConnection();
+
+            try {
+                // Define que a conexão pode enviar informações e obtê-las de volta:
+                this.request.setDoOutput(true);
+                this.request.setDoInput(true);
+
+                // Define o content-type:
+                this.request.setRequestProperty("Content-Type", "application/json");
+
+                // Define o método da requisição:
+                this.request.setRequestMethod("DELETE");
+
+                String authHeaderValue = "Bearer " + new String(token);    // cabeçalho de com autenticação
+
+                this.request.setRequestProperty("Authorization", authHeaderValue);   
+                
+                // Conecta na URL:
+                this.request.connect();
+
+                // Escreve o objeto JSON usando o OutputStream da requisição:
+                try (OutputStream outputStream = this.request.getOutputStream()) {
+                    outputStream.write(json.getBytes("UTF-8"));
+                }
+
+                // Caso você queira usar o código HTTP para fazer alguma coisa, descomente esta linha.
+                return readResponse(this.request);
+            } finally {
+                this.request.disconnect();
+            }
+        } catch (IOException ex) {
+            System.out.println("");
+        }
+
+        return "Erro";
+    }
+    
     private String readResponse(HttpURLConnection request) throws IOException {
         ByteArrayOutputStream os;
         

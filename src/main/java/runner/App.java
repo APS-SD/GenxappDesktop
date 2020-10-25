@@ -8,6 +8,8 @@ package runner;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import controller.ControllerGateway;
+import controller.UserController;
 
 import helpers.HTTPClient;
 import model.CredentialLoginModel;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.TokenModel;
+import model.UserModel;
 import org.json.JSONException;
 import org.json.JSONObject;
 import serializer.TokenSerializer;
@@ -26,7 +29,11 @@ public class App {
 
     public static void main(String[] args) {
     	
-    	// Consumo Token
+
+    	/*
+        
+        
+        // Consumo Token
     	HTTPClient c = new HTTPClient();
     	
     	Gson jsonConversor = new Gson();
@@ -77,8 +84,24 @@ public class App {
 			e.printStackTrace();
 		}
     	
-    	
-    	
+        */
+        
+        ControllerGateway cg =  new ControllerGateway();
+        UserController uc = new UserController();
+        uc.create("bre", "bre", "breno@breno.com.br", "bern", "Bern");
+        
+        
+        boolean result = cg.logon("bre", "bre");
+        
+        if(result){
+            
+          System.out.println(uc.retrieve());
+          System.out.println(uc.update("bre", "bre", "br@br.com.br", "br", "br"));
+          System.out.println(uc.retrieve());
+          System.out.println(uc.delete());
+            
+        }
+        
     }
     
     public static void name() {
@@ -86,16 +109,22 @@ public class App {
          App.array2Json();
          App.string2Json();
          
-         App.getAllUsers();
+         
 	}
    
-    public static void getAllUsers() {
+    public static void createUser() {
     	
     	HTTPClient http = new HTTPClient();
     	TokenModel token = App.Json2Login(false);
     	
+        
+        UserModel m = new UserModel("bern", "bern", "bern", "Bern","breno@breno.com.br");
+        UserSerializer us = new UserSerializer();
+      
+        String payload =us.toStringJson(m);
+        
         try {
-            String response_str = http.sendGet("https://genxapp.herokuapp.com/api/v1/users_auth/?format=json", token.getAccess());
+            String response_str = http.sendPost("https://genxapp.herokuapp.com/api/v1/user/?format=json", payload,token.getAccess());
             
             System.out.println(response_str);
             
