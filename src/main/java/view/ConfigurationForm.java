@@ -5,7 +5,6 @@
  */
 package view;
 
-import controller.LoginController;
 import controller.UserController;
 
 import javax.swing.JFrame;
