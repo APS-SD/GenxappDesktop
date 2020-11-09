@@ -88,6 +88,7 @@ public class LoginForm extends javax.swing.JFrame {
         jtxtUser.setBackground(new java.awt.Color(108, 122, 137));
         jtxtUser.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jtxtUser.setForeground(new java.awt.Color(228, 241, 254));
+        jtxtUser.setDisabledTextColor(new java.awt.Color(255, 255, 255));
 
         jtxtSenha.setBackground(new java.awt.Color(108, 122, 137));
         jtxtSenha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -107,6 +108,11 @@ public class LoginForm extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Cancelar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabelCadastro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelCadastro.setForeground(new java.awt.Color(255, 255, 255));
@@ -247,6 +253,11 @@ public class LoginForm extends javax.swing.JFrame {
        
        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        jtxtUser.setText("");
+        jtxtSenha.setText("");
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
