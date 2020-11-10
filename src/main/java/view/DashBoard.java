@@ -6,10 +6,15 @@
 package view;
 
 import controller.UserController;
+import controller.miRNAController;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import model.TargetScanModel;
 
 public class DashBoard extends javax.swing.JFrame {
 
@@ -58,7 +63,7 @@ public class DashBoard extends javax.swing.JFrame {
         jLabelClose.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabelClose.setForeground(new java.awt.Color(255, 255, 255));
         jLabelClose.setText("X");
-        jLabelClose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelClose.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabelClose.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelCloseMouseClicked(evt);
@@ -68,7 +73,7 @@ public class DashBoard extends javax.swing.JFrame {
         jLabelMin.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabelMin.setForeground(new java.awt.Color(255, 255, 255));
         jLabelMin.setText("-");
-        jLabelMin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelMin.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabelMin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelMinMouseClicked(evt);
@@ -121,11 +126,16 @@ public class DashBoard extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(44, 62, 80));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("PESQUISAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jlbAlterarCad.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jlbAlterarCad.setForeground(new java.awt.Color(255, 255, 255));
         jlbAlterarCad.setText("ALTERAR CADASTRO");
-        jlbAlterarCad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jlbAlterarCad.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jlbAlterarCad.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jlbAlterarCadMouseClicked(evt);
@@ -135,7 +145,7 @@ public class DashBoard extends javax.swing.JFrame {
         jLbLogoff.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLbLogoff.setForeground(new java.awt.Color(255, 255, 255));
         jLbLogoff.setText("LOGOFF");
-        jLbLogoff.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLbLogoff.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLbLogoff.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLbLogoffMouseClicked(evt);
@@ -279,6 +289,33 @@ public class DashBoard extends javax.swing.JFrame {
       this.dispose();
       
     }//GEN-LAST:event_jLbLogoffMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        miRNAController mc  = new miRNAController();
+        List<TargetScanModel> lista = mc.retrieveTargetScan();
+
+        
+        DashVisualization d =  new DashVisualization();
+        JTable m = d.getTable();
+        DefaultTableModel dtm = (DefaultTableModel) m.getModel();
+        
+        for(TargetScanModel t: lista){
+            System.out.println(t);
+            dtm.addRow(new Object[]{
+                t.getGene_id(),
+                t.getGene_name(),
+                t.getMirna(),
+                t.getScore(),
+                t.getSpecie()
+                
+            });
+        }
+        m.setModel(dtm);
+        d.setVisible(true);
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
