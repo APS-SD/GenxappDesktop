@@ -27,11 +27,13 @@ public class UserSerializer implements Serializer {
         return gson.fromJson(stringJson, UserModel.class);
     }
 
-	@SuppressWarnings("hiding")
-	@Override
-	public <UserModel> List<UserModel> getAll() {
 
+	@Override
+	public <T> List<T> getAll() {
+		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 }

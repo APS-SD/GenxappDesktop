@@ -8,6 +8,11 @@ package runner;
 
 import controller.ControllerGateway;
 import controller.UserController;
+import controller.miRNAController;
+import model.TargetScanModel;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import view.LoginForm;

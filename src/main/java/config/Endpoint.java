@@ -18,4 +18,12 @@ public abstract class Endpoint {
         public static String getUserAtuh(){
             return rootURL + "user_auth/?format=json";
         }
+        
+        public static String getMIRDB() {
+        	return rootURL + "mirdb/?format=json";
+        }
+        
+        public static String getTargetScan() {
+        	return rootURL + "tgscan/?format=json";
+        }
 }
