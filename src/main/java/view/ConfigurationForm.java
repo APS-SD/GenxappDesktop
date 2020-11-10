@@ -61,13 +61,13 @@ public class ConfigurationForm extends javax.swing.JFrame {
         jtxtSenha = new javax.swing.JPasswordField();
         jLabel6 = new javax.swing.JLabel();
         jtxtEmail = new javax.swing.JTextField();
-        jtxtEditar = new javax.swing.JButton();
+        jtxtEditar2 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(248, 148, 6));
-        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -76,7 +76,7 @@ public class ConfigurationForm extends javax.swing.JFrame {
         jLabelClose.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabelClose.setForeground(new java.awt.Color(255, 255, 255));
         jLabelClose.setText("X");
-        jLabelClose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelClose.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabelClose.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelCloseMouseClicked(evt);
@@ -86,7 +86,7 @@ public class ConfigurationForm extends javax.swing.JFrame {
         jLabelMin.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabelMin.setForeground(new java.awt.Color(255, 255, 255));
         jLabelMin.setText("-");
-        jLabelMin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelMin.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabelMin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelMinMouseClicked(evt);
@@ -175,13 +175,10 @@ public class ConfigurationForm extends javax.swing.JFrame {
         jtxtEmail.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jtxtEmail.setForeground(new java.awt.Color(228, 241, 254));
 
-        jtxtEditar.setBackground(new java.awt.Color(89, 171, 227));
-        jtxtEditar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jtxtEditar.setForeground(new java.awt.Color(255, 255, 255));
-        jtxtEditar.setText("Editar");
-        jtxtEditar.addActionListener(new java.awt.event.ActionListener() {
+        jtxtEditar2.setText("Editar");
+        jtxtEditar2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtxtEditarActionPerformed(evt);
+                jtxtEditar2ActionPerformed(evt);
             }
         });
 
@@ -195,8 +192,7 @@ public class ConfigurationForm extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jtxtDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jtxtEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3))
+                        .addComponent(jtxtEditar2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,7 +237,7 @@ public class ConfigurationForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtxtDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxtEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtxtEditar2))
                 .addGap(169, 169, 169))
         );
 
@@ -277,7 +273,7 @@ public class ConfigurationForm extends javax.swing.JFrame {
 
     private void jtxtDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtDeletarActionPerformed
         // TODO add your handling code here:
-        if(jtxtEditar.isSelected()){
+        if(jtxtEditar2.isSelected()){
             this.alterarEstado(false);
         }else{
            int iraExcluir = JOptionPane.showConfirmDialog(null, "Você deseja mesmo excluir sua conta");
@@ -298,10 +294,10 @@ public class ConfigurationForm extends javax.swing.JFrame {
     
     private void alterarEstado(boolean editavel){
         if(editavel){
-            jtxtEditar.setText("Salvar");
+            jtxtEditar2.setText("Salvar");
             jtxtDeletar.setText("Cancelar");
         }else{
-            jtxtEditar.setText("Editar");
+            jtxtEditar2.setText("Editar");
             jtxtDeletar.setText("Deletar");
             
         }
@@ -321,8 +317,12 @@ public class ConfigurationForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtSobrenomeActionPerformed
 
-    private void jtxtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtEditarActionPerformed
-        if(jtxtEditar.isSelected()){
+    private void jtxtEditar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtEditar2ActionPerformed
+        // TODO add your handling code here:
+        System.out.println(jtxtEditar2.isSelected());
+        boolean j = jtxtEditar2.isSelected();
+
+        if(j){
             this.alterarEstado(true);
 
         }else{
@@ -337,13 +337,12 @@ public class ConfigurationForm extends javax.swing.JFrame {
                 mensagem = "Salvo com sucesso";
             }else{
                 mensagem = this.uc.getError();
-                jtxtEditar.setSelected(true);
+                jtxtEditar2.setSelected(true);
             }
 
             JOptionPane.showMessageDialog(null, mensagem);
         }
-
-    }//GEN-LAST:event_jtxtEditarActionPerformed
+    }//GEN-LAST:event_jtxtEditar2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -395,7 +394,7 @@ public class ConfigurationForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton jtxtDeletar;
-    private javax.swing.JButton jtxtEditar;
+    private javax.swing.JToggleButton jtxtEditar2;
     private javax.swing.JTextField jtxtEmail;
     private javax.swing.JTextField jtxtNome;
     private javax.swing.JPasswordField jtxtSenha;

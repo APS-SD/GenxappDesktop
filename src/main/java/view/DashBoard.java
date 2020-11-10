@@ -40,10 +40,8 @@ public class DashBoard extends javax.swing.JFrame {
         jLabelClose = new javax.swing.JLabel();
         jLabelMin = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
+        combo = new javax.swing.JComboBox<>();
+        diana = new javax.swing.JCheckBox();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -82,36 +80,22 @@ public class DashBoard extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(44, 62, 80));
 
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GENE", "MIRNA" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        combo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GENE", "MIRNA" }));
+        combo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                comboActionPerformed(evt);
             }
         });
 
-        jCheckBox1.setBackground(new java.awt.Color(44, 62, 80));
-        jCheckBox1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox1.setText("MIRDB");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        diana.setBackground(new java.awt.Color(44, 62, 80));
+        diana.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        diana.setForeground(new java.awt.Color(255, 255, 255));
+        diana.setSelected(true);
+        diana.setText("DIANA TOOLS");
+        diana.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
-            }
-        });
-
-        jCheckBox2.setBackground(new java.awt.Color(44, 62, 80));
-        jCheckBox2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jCheckBox2.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox2.setText("TARBASE");
-
-        jCheckBox3.setBackground(new java.awt.Color(44, 62, 80));
-        jCheckBox3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jCheckBox3.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox3.setText("TGSCAN");
-        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox3ActionPerformed(evt);
+                dianaActionPerformed(evt);
             }
         });
 
@@ -122,6 +106,13 @@ public class DashBoard extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Escolha a Estrutura Funcional ");
+
+        jTextField1.setText("a1bg");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jButton1.setBackground(new java.awt.Color(44, 62, 80));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
@@ -165,15 +156,11 @@ public class DashBoard extends javax.swing.JFrame {
                         .addComponent(jLbLogoff)
                         .addGap(37, 37, 37))
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(diana, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(243, 243, 243)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCheckBox2)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(303, 303, 303)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel5)
+                            .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(149, 149, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,13 +188,9 @@ public class DashBoard extends javax.swing.JFrame {
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jCheckBox2)
-                .addGap(18, 18, 18)
-                .addComponent(jCheckBox3)
-                .addContainerGap(201, Short.MAX_VALUE))
+                    .addComponent(diana)
+                    .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(285, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -263,9 +246,9 @@ public class DashBoard extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jLabelMinMouseClicked
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_comboActionPerformed
 
     private void jlbAlterarCadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbAlterarCadMouseClicked
        ConfigurationForm config = new ConfigurationForm();
@@ -275,13 +258,10 @@ public class DashBoard extends javax.swing.JFrame {
         config.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);;
     }//GEN-LAST:event_jlbAlterarCadMouseClicked
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void dianaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dianaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
-
-    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox3ActionPerformed
+        
+    }//GEN-LAST:event_dianaActionPerformed
 
     private void jLbLogoffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLbLogoffMouseClicked
       LoginForm lg = new LoginForm();
@@ -292,8 +272,17 @@ public class DashBoard extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        
+        
+        if(!diana.isSelected()){
+            JOptionPane.showMessageDialog(null, "Por favor seleciona base de dados");
+        }else{
+            
+        String term = jTextField1.getText();
+        
+        
         miRNAController mc  = new miRNAController();
-        List<TargetScanModel> lista = mc.retrieveTargetScan();
+        List<TargetScanModel> lista = mc.retrieveTargetScan(term);
 
         
         DashVisualization d =  new DashVisualization();
@@ -301,21 +290,47 @@ public class DashBoard extends javax.swing.JFrame {
         DefaultTableModel dtm = (DefaultTableModel) m.getModel();
         
         for(TargetScanModel t: lista){
-            System.out.println(t);
-            dtm.addRow(new Object[]{
+            if(term.equals("")){
+                dtm.addRow(new Object[]{
                 t.getGene_id(),
                 t.getGene_name(),
                 t.getMirna(),
                 t.getScore(),
                 t.getSpecie()
                 
-            });
+                });   
+            } else if(t.getGene_name().equals(term) && combo.getSelectedItem().toString().equals("GENE")){
+                dtm.addRow(new Object[]{
+                t.getGene_id(),
+                t.getGene_name(),
+                t.getMirna(),
+                t.getScore(),
+                t.getSpecie()
+                
+                });
+            }else if(t.getMirna().equals(term)){
+                System.out.println("Escapando aqui");
+                 dtm.addRow(new Object[]{
+                t.getGene_id(),
+                t.getGene_name(),
+                t.getMirna(),
+                t.getScore(),
+                t.getSpecie()
+                
+                });
+            }
         }
         m.setModel(dtm);
         d.setVisible(true);
         
+        }
+        
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -356,11 +371,9 @@ public class DashBoard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> combo;
+    private javax.swing.JCheckBox diana;
     private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

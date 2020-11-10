@@ -48,7 +48,7 @@ public class miRNAController{
     }
     
 
-    public List<TargetScanModel> retrieveTargetScan() {
+    public List<TargetScanModel> retrieveTargetScan(String term) {
 
         Response response = this.request.retrieveTargetScan();
         System.out.println(response.getContent());
@@ -67,6 +67,7 @@ public class miRNAController{
         }
 		
     }
+
 
 
 }
